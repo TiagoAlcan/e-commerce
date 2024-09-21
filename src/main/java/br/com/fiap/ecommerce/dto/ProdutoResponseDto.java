@@ -1,10 +1,13 @@
 package br.com.fiap.ecommerce.dto;
 
-public class ProdutoResponseDto {
+import br.com.fiap.ecommerce.model.Produto;
+import org.modelmapper.ModelMapper;
 
+public class ProdutoResponseDto {
 	private Long id;
 	private String nome;
-	
+	private static final ModelMapper modelMapper = new ModelMapper();
+
 	public Long getId() {
 		return id;
 	}
@@ -17,5 +20,10 @@ public class ProdutoResponseDto {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
+
+	public br.com.fiap.ecommerce.dto.ProdutoResponseDto toDto(Produto produto) {
+		ProdutoResponseDto result = modelMapper.map(produto,ProdutoResponseDto.class);
+		return result;
+	}
 }

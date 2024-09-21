@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.ecommerce.dtos.ProdutoRequestCreateDto;
-import br.com.fiap.ecommerce.dtos.ProdutoRequestUpdateDto;
-import br.com.fiap.ecommerce.dtos.ProdutoResponseDto;
+import br.com.fiap.ecommerce.dto.ProdutoRequestCreateDto;
+import br.com.fiap.ecommerce.dto.ProdutoRequestUpdateDto;
+import br.com.fiap.ecommerce.dto.ProdutoResponseDto;
 import br.com.fiap.ecommerce.model.Produto;
 import br.com.fiap.ecommerce.service.ProdutoService;
 
@@ -33,16 +33,14 @@ public class ProdutoController {
                 .stream()
                 .map(e -> new ProdutoResponseDto().toDto(e))
                 .toList();
-        // List<Produto> -> Lisst<ProdutoResponseDto>
         return dtos;
     }
 
     @PostMapping
     public ProdutoResponseDto create(@RequestBody ProdutoRequestCreateDto dto) {
-        // ProdutoRequestCreateDto -> Produto
-        // Produto saved = produtoService.save();
-        // Produto -> ProdutoResponseDto
-        return null;
+        Produto produto = dto.toModel();
+        Produto saved = produtoService.save(produto);
+        return new ProdutoResponseDto().toDto(saved);
     }
 
     // localhost:8080/produtos/5

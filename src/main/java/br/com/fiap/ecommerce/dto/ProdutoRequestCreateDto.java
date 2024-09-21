@@ -1,7 +1,10 @@
 package br.com.fiap.ecommerce.dto;
 
-public class ProdutoRequestCreateDto {
+import br.com.fiap.ecommerce.model.Produto;
+import org.modelmapper.ModelMapper;
 
+public class ProdutoRequestCreateDto {
+	private ModelMapper modelMapper;
 	private String nome;
 
 	public String getNome() {
@@ -12,6 +15,9 @@ public class ProdutoRequestCreateDto {
 		this.nome = nome;
 	}
 	
-	
+	public Produto toModel() {
+		return modelMapper.map(this,Produto.class);
+
+	}
 	
 }
